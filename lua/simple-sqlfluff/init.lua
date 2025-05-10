@@ -1,4 +1,4 @@
-local M
+local M = {}
 
 M.VERSION = "0.1.0"
 
@@ -63,7 +63,7 @@ local function lint()
 	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 	local sql_content = table.concat(lines, "\n")
 
-	local cmd = "sqlfluff lint --format=json --dialect=postgres -"
+	local cmd = "sqlfluff lint --format=json -"
 
 	local output = vim.fn.system(cmd, sql_content)
 	local violations = extract_violations(output)
@@ -71,7 +71,7 @@ local function lint()
 	render(violations)
 end
 
-function M.setup()
+function M.setup(opts)
 	local augroup = vim.api.nvim_create_augroup("simple-sqlfluff", { clear = true })
 	vim.api.nvim_create_autocmd({ "BufReadPost", "InsertLeave" }, {
 		group = augroup,
