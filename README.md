@@ -1,5 +1,5 @@
 # simple-sqlfluff.nvim
-## A dead-simple batteries-included sqlfluff linter for Neovim.
+A dead-simple batteries-included sqlfluff linter for Neovim.
 
 ![Logo](./repo/images/simple-sqlfluff-logo.png)
 
