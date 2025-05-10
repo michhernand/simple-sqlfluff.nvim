@@ -37,4 +37,5 @@ For configuring sqlfluff, use one of [sqlfluff's configuration file formats](htt
 Simply open a `.sql` file and start editing!
 
 Use your preferred method to review linting errors.
+
 *[Trouble](https://github.com/folke/trouble.nvim) (shown in the GIF) provides an excellent interface for reviewing linting (and other) errors.*
