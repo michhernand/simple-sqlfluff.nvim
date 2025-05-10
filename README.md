@@ -17,7 +17,12 @@ Batteries-included sqlfluff linter for Neovim.
 
 ## Packer
 ```lua
-use { "michhernand/simple-sqlfluff.nvim" }
+use {
+    "michhernand/simple-sqlfluff.nvim",
+    config = function()
+        require("simple-sqlfluff").setup{}
+    end,
+}
 ```
 
 # ⚙️ Configuration
