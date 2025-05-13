@@ -71,12 +71,14 @@ local function lint()
 	render(violations)
 end
 
+local alint = vim.loop.new_async(vim.schedule_wrap(lint))
+
 function M.setup(opts)
 	local augroup = vim.api.nvim_create_augroup("simple-sqlfluff", { clear = true })
 	vim.api.nvim_create_autocmd({ "BufReadPost", "InsertLeave" }, {
 		group = augroup,
 		pattern = { "*.sql" },
-		callback = lint,
+		callback = function() alint:send() end,
 	})
 end
 
