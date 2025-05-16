@@ -75,6 +75,16 @@ end
 
 local alint = vim.loop.new_async(vim.schedule_wrap(lint))
 
+local function format()
+	local fn = vim.fn.expand('%:p')
+	local cmd = "sqlfluff format " .. fn
+	vim.fn.system(cmd)
+
+	local formatted_content = vim.fn.readfile(fn)
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_content)
+end
+
+
 function M.setup(opts)
 	sett.resolve_opts(opts)
 
@@ -87,6 +97,12 @@ function M.setup(opts)
 			callback = function() alint:send() end,
 		})
 	end
+
+	vim.api.nvim_create_user_command(
+		"SQLFluffFormat",
+		format,
+		{ nargs = 0 }
+	)
 end
 
 return M
