@@ -1,3 +1,5 @@
+local sett = require("simple-sqlfluff.settings")
+
 local M = {}
 
 M.VERSION = "0.1.0"
@@ -71,13 +73,36 @@ local function lint()
 	render(violations)
 end
 
+local alint = vim.loop.new_async(vim.schedule_wrap(lint))
+
+local function format()
+	local fn = vim.fn.expand('%:p')
+	local cmd = "sqlfluff format " .. fn
+	vim.fn.system(cmd)
+
+	local formatted_content = vim.fn.readfile(fn)
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_content)
+end
+
+
 function M.setup(opts)
+	sett.resolve_opts(opts)
+
 	local augroup = vim.api.nvim_create_augroup("simple-sqlfluff", { clear = true })
-	vim.api.nvim_create_autocmd({ "BufReadPost", "InsertLeave" }, {
-		group = augroup,
-		pattern = { "*.sql" },
-		callback = lint,
-	})
+
+	if sett.options.autocommands.enabled then
+		vim.api.nvim_create_autocmd(sett.options.autocommands.events, {
+			group = augroup,
+			pattern = sett.options.autocommands.extensions,
+			callback = function() alint:send() end,
+		})
+	end
+
+	vim.api.nvim_create_user_command(
+		"SQLFluffFormat",
+		format,
+		{ nargs = 0 }
+	)
 end
 
 return M

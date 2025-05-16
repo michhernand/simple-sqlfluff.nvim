@@ -10,6 +10,9 @@ A dead-simple batteries-included sqlfluff linter for Neovim.
 ```lua
 {
     "michhernand/simple-sqlfluff.nvim",
+    keys = {
+        { "<leader>Sf", "<cmd>SQLFluffFormat<CR>", desc = "Format w/ SQLFluff" }
+    }
 	opts = {}
 }
 ```
@@ -21,6 +24,9 @@ use {
     config = function()
         require("simple-sqlfluff").setup{}
     end,
+    keys = function()
+        vim.keymap.set("n", "<leader>Sf", "<cmd>SQLFluffFormat<CR>", { desc = "Format w/ SQLFluff" })
+    end
 }
 ```
 
