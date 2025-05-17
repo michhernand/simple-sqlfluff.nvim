@@ -82,6 +82,16 @@ local function toggle_autocommand()
 	sett.autocommand_toggle = not sett.autocommand_toggle
 end
 
+local function format()
+	local fn = vim.fn.expand('%:p')
+	local cmd = "sqlfluff format " .. fn
+	vim.fn.system(cmd)
+
+	local formatted_content = vim.fn.readfile(fn)
+	vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_content)
+end
+
+
 function M.setup(opts)
 	sett.resolve_opts(opts)
 
@@ -101,6 +111,8 @@ function M.setup(opts)
 	vim.api.nvim_create_user_command(
 		"SQLFluffToggle",
 		toggle_autocommand,
+		"SQLFluffFormat",
+		format,
 		{ nargs = 0 }
 	)
 end
