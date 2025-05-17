@@ -15,8 +15,8 @@ A dead-simple batteries-included sqlfluff linter for Neovim.
         { "<leader>St", "<cmd>SQLFluffToggle<CR>", desc = "Toggle SQLFluff Linting" }
         { "<leader>Se", "<cmd>SQLFluffEnable<CR>", desc = "Enable SQLFluff Linting" }
         { "<leader>Sd", "<cmd>SQLFluffDisable<CR>", desc = "Disable SQLFluff Linting" }
-    }
-	opts = {}
+    },
+    opts = {}
 }
 ```
 
