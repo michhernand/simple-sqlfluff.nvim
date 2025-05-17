@@ -2,6 +2,8 @@ local M = {}
 
 M.options = {}
 
+M.autocommand_toggle = true
+
 M.defaults = {
 	autocommands = {
 		enabled = true,
