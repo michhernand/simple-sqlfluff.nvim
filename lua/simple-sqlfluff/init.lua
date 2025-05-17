@@ -80,7 +80,7 @@ function M.setup(opts)
 
 	local augroup = vim.api.nvim_create_augroup("simple-sqlfluff", { clear = true })
 
-	if sett.options.autocommands.enabled then
+	if (#sett.options.autocommands.events > 0) and (#sett.options.autocommands.extensions > 0) and sett.options.autocommands.enabled then
 		vim.api.nvim_create_autocmd(sett.options.autocommands.events, {
 			group = augroup,
 			pattern = sett.options.autocommands.extensions,
