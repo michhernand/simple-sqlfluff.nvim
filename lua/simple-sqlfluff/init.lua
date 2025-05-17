@@ -111,10 +111,27 @@ function M.setup(opts)
 	vim.api.nvim_create_user_command(
 		"SQLFluffToggle",
 		toggle_autocommand,
+		{ nargs = 0 }
+	)
+
+	vim.api.nvim_create_user_command(
+		"SQLFluffEnable",
+		function() sett.autocommand_toggle = true end,
+		{ nargs = 0 }
+	)
+
+	vim.api.nvim_create_user_command(
+		"SQLFluffDisable",
+		function() sett.autocommand_toggle = false end,
+		{ nargs = 0 }
+	)
+
+	vim.api.nvim_create_user_command(
 		"SQLFluffFormat",
 		format,
 		{ nargs = 0 }
 	)
+
 end
 
 return M

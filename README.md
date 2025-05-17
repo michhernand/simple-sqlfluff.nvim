@@ -11,7 +11,10 @@ A dead-simple batteries-included sqlfluff linter for Neovim.
 {
     "michhernand/simple-sqlfluff.nvim",
     keys = {
-        { "<leader>Sf", "<cmd>SQLFluffFormat<CR>", desc = "Format w/ SQLFluff" }
+        { "<leader>Sf", "<cmd>SQLFluffFormat<CR>", desc = "Format w/ SQLFluff" },
+        { "<leader>St", "<cmd>SQLFluffToggle<CR>", desc = "Toggle SQLFluff Linting" }
+        { "<leader>Se", "<cmd>SQLFluffEnable<CR>", desc = "Enable SQLFluff Linting" }
+        { "<leader>Sd", "<cmd>SQLFluffDisable<CR>", desc = "Disable SQLFluff Linting" }
     }
 	opts = {}
 }
@@ -26,6 +29,11 @@ use {
     end,
     keys = function()
         vim.keymap.set("n", "<leader>Sf", "<cmd>SQLFluffFormat<CR>", { desc = "Format w/ SQLFluff" })
+        vim.keymap.set("n", "<leader>St", "<cmd>SQLFluffToggle<CR>", { desc = "Toggle SQLFluff Linting" )
+
+        vim.keymap.set("n", "<leader>Se", "<cmd>SQLFluffEnable<CR>", { desc = "Enable SQLFluff Linting" )
+
+        vim.keymap.set("n", "<leader>Sd", "<cmd>SQLFluffDisable<CR>", { desc = "Disable SQLFluff Linting" )
     end
 }
 ```
@@ -62,3 +70,15 @@ Simply open a `.sql` file and start editing!
 Use your preferred method to review linting errors.
 
 *[Trouble](https://github.com/folke/trouble.nvim) (shown in the GIF) provides an excellent interface for reviewing linting (and other) errors.*
+
+## Format File - <kbd>leader</kbd>-<kbd>Sf</kbd>
+Formats your open buffer per your .sqlfluff settings.
+
+## Toggle Linting - <kbd>leader</kbd>-<kbd>St</kbd>
+Toggles sqlfluff linting. Turns linting on/off.
+
+## Enable Linting - <kbd>leader</kbd>-<kbd>Se</kbd>
+Enables sqlfluff linting.
+
+## Disable Linting - <kbd>leader</kbd>-<kbd>Sd</kbd>
+Disbales sqlfluff linting.
