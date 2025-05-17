@@ -62,6 +62,9 @@ local function render(violations)
 end
 
 local function lint()
+	if not sett.autocommand_toggle then
+		return
+	end
 	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 	local sql_content = table.concat(lines, "\n")
 
@@ -74,6 +77,10 @@ local function lint()
 end
 
 local alint = vim.loop.new_async(vim.schedule_wrap(lint))
+
+local function toggle_autocommand()
+	sett.autocommand_toggle = not sett.autocommand_toggle
+end
 
 local function format()
 	local fn = vim.fn.expand('%:p')
@@ -89,8 +96,11 @@ function M.setup(opts)
 	sett.resolve_opts(opts)
 
 	local augroup = vim.api.nvim_create_augroup("simple-sqlfluff", { clear = true })
+	local ev_ok = #sett.options.autocommands.events > 0
+	local ex_ok = #sett.options.autocommands.extensions > 0
+	local en = sett.options.autocommands.enabled
 
-	if sett.options.autocommands.enabled then
+	if ev_ok and ex_ok and en then
 		vim.api.nvim_create_autocmd(sett.options.autocommands.events, {
 			group = augroup,
 			pattern = sett.options.autocommands.extensions,
@@ -99,10 +109,29 @@ function M.setup(opts)
 	end
 
 	vim.api.nvim_create_user_command(
+		"SQLFluffToggle",
+		toggle_autocommand,
+		{ nargs = 0 }
+	)
+
+	vim.api.nvim_create_user_command(
+		"SQLFluffEnable",
+		function() sett.autocommand_toggle = true end,
+		{ nargs = 0 }
+	)
+
+	vim.api.nvim_create_user_command(
+		"SQLFluffDisable",
+		function() sett.autocommand_toggle = false end,
+		{ nargs = 0 }
+	)
+
+	vim.api.nvim_create_user_command(
 		"SQLFluffFormat",
 		format,
 		{ nargs = 0 }
 	)
+
 end
 
 return M
