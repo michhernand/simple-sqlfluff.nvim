@@ -25,6 +25,26 @@ use {
 ```
 
 # ⚙️ Configuration
+## Defaults
+```lua
+opts = {
+    autocommands = {
+        enabled = true, -- global on/off switch for linting
+
+        -- An array of events to run sqlfluff lint on - if empty, linting is disabled
+		events = {
+			"BufReadPost",
+			"InsertLeave",
+		},
+
+        -- An array of file extensions to run sqlfluff lint on - if empty, linting is disabled
+		extensions = {
+			"*.sql",
+		},
+    }
+}
+```
+## Configuring SQLFluff
 For configuring sqlfluff, use one of [sqlfluff's configuration file formats](https://docs.sqlfluff.com/en/stable/configuration/setting_configuration.html#configuration-files).
 
 # 🖥️ Usage
