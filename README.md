@@ -1,6 +1,9 @@
 # simple-sqlfluff.nvim
 A dead-simple batteries-included sqlfluff linter for Neovim.
 
+# NOTE: This reposity has been moved!
+This repository has been moved to [simple-sqlfluff.nvim on Codeberg](https://codeberg.org/hernandez/simple-sqlfluff)
+
 # 📎 Requirements
 - Tested on Neovim 0.11.0.
 - [sqlfluff](https://docs.sqlfluff.com/en/stable/index.html) (Tested on v3.4.0)
